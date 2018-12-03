@@ -1,0 +1,61 @@
+1.能够简单介绍spring框架
+	Spring是一个一站式（表现层、业务层、持久层）、轻量级、开源的框架
+	
+2.能够描述出spring的IOC容器
+	IOC：控制反转
+		以前使我们自己new对象，现在对象交给Spring管理
+	容器：
+		Spring用来存放对象的Map集合
+		接口管理了容器，我们把这些接口叫做Bean工厂，也叫容器
+		BeanFactory 顶层接口
+		ApplictionContext 子接口，非常常用
+		三个实现类  ClassPathXmlApplictionContext
+		
+3.能够编写springIOC的入门案例
+	第一步：建工程，导坐标spring-context 
+	第二步：配置文件bean.xml，后面我们会改成Spring官方推荐的一个专有配置文件名applicationContext.xml
+		接口、实现类
+		<bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl" />
+	第三步：测试
+		编写好测试类
+		ApplicationContext ac = new ClassPathXmlApplictionContext("bean.xml");
+		IAccountService as = (IAccountService)ac.getBean("accountService");
+		
+		1.读取xml配置文件
+		2.解析xml配置文件，并且根据class="com.itheima.service.impl.AccountServiceImpl"，
+			利用反射创建对象
+		3.把id和对象存储到Map集合里
+		
+4.创建对象的三种方式
+	第一种：最常用，推荐使用的
+		<bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl" />
+	第二种：使用普通工厂中的方法创建对象
+		<bean id="instanceFactory" class="com.itheima.factory.InstanceFactory"></bean>
+		<bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"></bean>
+	第三种：使用工厂中的静态方法创建对象
+		<bean id="accountService" class="com.itheima.factory.StaticFactory" factory-method="getAccountService"></bean>
+	
+5.对象创建的细节
+	作用范围：单例（Spring默认创建的对象就是单例）、多例
+	生命周期：
+		单例  生命周期与容器同在
+		多例  使用的时候创建对象，最后对象被垃圾回收器回收
+6.依赖注入
+	本质：给对象设置值
+	构造器注入
+		<bean id="" class="" >
+			<constructor-arg name="" value="" />
+			<constructor-arg name="" ref="" />
+		</bean>
+	set方法注入，也叫属性注入
+		<bean id="" class="" >
+			<property name="" value="" />
+			<property name="" ref="" />
+		</bean>
+
+
+
+	
+	
+	
+		
